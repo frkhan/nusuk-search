@@ -1,0 +1,18 @@
+{
+  "name": "Nusuk Continuous Search",
+  "version": "1.0",
+  "description": "Search a package!",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {"16": "images/nusuk.png"}
+  },
+  "icons": {
+    "16": "images/nusuk.png"
+  },
+  "manifest_version": 3
+}
