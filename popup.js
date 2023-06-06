@@ -18,6 +18,8 @@
 let count=0;
 const changeColorButton = document.getElementById('changeColor');
 
+
+
 chrome.storage.local.set({ 'count': 0 }).then(() => {
   console.log("Value is set");
 });
@@ -35,17 +37,9 @@ changeColorButton.addEventListener('click', (event) => {
   // Query the active tab before injecting the content script
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     // Use the Scripting API to execute a script
-    /*
     chrome.scripting.executeScript({
       target: { tabId: tabs[0].id },
-      args: [color],
-      func: setColor
-    });
-    */
-
-    chrome.scripting.executeScript({
-      target: { tabId: tabs[0].id },
-      func: refresh_search
+      func: init_app
     });
 
   });
@@ -63,33 +57,74 @@ function setColor(color) {
 
 }
 
-function refresh_search(){
 
-  const $button=document.getElementsByClassName('btn-main');
 
-  if ( typeof counter == 'undefined' ) {
-    counter = 0;
+
+
+
+function init_app(){
+  var refresh_search=function(){
+    const $button=document.getElementsByClassName('btn-main');
+    const $packages_list=document.getElementsByClassName('packages-list');
+
+    console.log($packages_list[0].childNodes.length);
+
+    if ( typeof new_package == 'undefined' ) {
+      new_package = false;
+    }
+
+
+    if($packages_list[0].childNodes.length > 0 && new_package == false ) {
+      new_package = true;
+      let beat = new Audio('https://file-examples.com/storage/fec91aecf9647d0f79cc0bb/2017/11/file_example_MP3_700KB.mp3');
+      beat.loop = true;
+      beat.play();
+    }
+
+
+
+    if ( typeof counter == 'undefined' ) {
+      counter = 0;
+    }
+    else{
+      counter++;
+    }
+
+    if ( typeof intervalId == 'undefined' ) {
+      intervalId = setInterval(refresh_search, 1000);
+    }
+
+    if(counter > 10) {
+      counter = 0;
+      document.getElementById('OnlyAvailablePackages').checked = true;
+      //$button[0].style.backgroundColor = 'green';
+      if(new_package == false) {
+        $button[0].click();
+      }
+    }
+    else{
+      //$button[0].innerHTML = counter;
+
+      const $counter_div = document.getElementById('counter-div')
+      $counter_div.innerHTML = counter;
+    }
+  };
+
+  const $counter_div = document.getElementById('counter-div')
+  console.log($counter_div);
+
+  if(typeof $counter_div  == 'undefined' || $counter_div == null ) {
+    const $profileMenu = document.getElementById('profileMenu');
+    const $para = document.createElement("div");
+    $para.setAttribute("id", "counter-div");
+    $para.innerHTML = "0";
+    //const $node = document.createElement("0");
+    //$node.setAttribute("id", "counter");
+    //$para.appendChild($node);
+    $profileMenu.appendChild($para);
   }
-  else{
-    counter++;
-  }
+
+  refresh_search();
 
 
-  if ( typeof intervalId == 'undefined' ) {
-    intervalId = setInterval(refresh_search, 1000);
-  }
-
-  console.log(counter);
-
-  if(counter > 10) {
-    counter = 0;
-
-    const $checkbox = document.getElementById('OnlyAvailablePackages').checked = true;
-
-    $button[0].style.backgroundColor = 'green';
-    $button[0].click();
-  }
-  else{
-    $button[0].innerHTML = counter;
-  }
 }
