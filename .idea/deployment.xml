@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="kalapahar">
+  <component name="PublishConfigData" serverName="think.fazlur">
     <serverData>
-      <paths name="kalapahar">
+      <paths name="think.fazlur">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="nusuk" />
+            <mapping local="$PROJECT_DIR$" web="nusuk-search" />
           </mappings>
         </serverdata>
       </paths>

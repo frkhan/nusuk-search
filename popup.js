@@ -76,7 +76,7 @@ function init_app(){
 
     if($packages_list[0].childNodes.length > 0 && new_package == false ) {
       new_package = true;
-      let beat = new Audio('https://file-examples.com/storage/fec91aecf9647d0f79cc0bb/2017/11/file_example_MP3_700KB.mp3');
+      let beat = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
       beat.loop = true;
       beat.play();
     }
@@ -94,7 +94,7 @@ function init_app(){
       intervalId = setInterval(refresh_search, 1000);
     }
 
-    if(counter > 10) {
+    if(counter > 5) {
       counter = 0;
       document.getElementById('OnlyAvailablePackages').checked = true;
       //$button[0].style.backgroundColor = 'green';
@@ -106,7 +106,7 @@ function init_app(){
       //$button[0].innerHTML = counter;
 
       const $counter_div = document.getElementById('counter-div')
-      $counter_div.innerHTML = counter;
+      $counter_div.innerHTML = '<h1>' + counter + '</h1>';
     }
   };
 
